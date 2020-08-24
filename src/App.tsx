@@ -1,5 +1,13 @@
 import React from 'react'
 
-const App: React.FC = () => <h1>Projeto vazio</h1>
+import { BrowserRouter } from 'react-router-dom'
+
+import Routes from './routes'
+
+const App: React.FC = () => (
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+)
 
 export default App
