@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { shade } from 'polished'
 
 export const Container = styled.div`
   height: 100vh;
@@ -10,7 +11,8 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   width: 100%;
   max-width: 448px;
@@ -21,5 +23,27 @@ export const Content = styled.div`
   img {
     width: 235px;
     height: 60px;
+    margin-bottom: 40px;
+  }
+
+  form {
+    width: 100%;
+    text-align: center;
+
+    h1 {
+      margin-bottom: 24px;
+    }
+
+    a {
+      color: #f4ede8;
+      display: block;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: ${shade(0.2, '#f4ede8')};
+      }
+    }
   }
 `
