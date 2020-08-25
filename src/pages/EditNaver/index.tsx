@@ -1,10 +1,10 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 
 import { FaChevronLeft } from 'react-icons/fa'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import {
   Content,
@@ -33,8 +33,6 @@ interface HistoryStateProps {
 }
 
 const EditNaver: React.FC = () => {
-  const [naver, setNaver] = useState<INaverInfo>({} as INaverInfo)
-
   const formRef = useRef<FormHandles>(null)
 
   const history = useHistory()
@@ -45,19 +43,11 @@ const EditNaver: React.FC = () => {
     async function loadNaver(): Promise<void> {
       const { data } = await api.get(`navers/${historyState.id}`)
 
-      const formattedNaver = {
+      formRef.current?.setData({
         ...data,
         birthdate: transformDate(data.birthdate),
         admission_date: transformDate(data.admission_date),
-      }
-
-      formRef.current?.setFieldValue('birthdate', transformDate(data.birthdate))
-      formRef.current?.setFieldValue(
-        'admission_date',
-        transformDate(data.birthdate),
-      )
-
-      setNaver(formattedNaver)
+      })
     }
 
     loadNaver()
@@ -83,7 +73,7 @@ const EditNaver: React.FC = () => {
 
         api.put(`navers/${historyState.id}`, data)
 
-        history.push('/dashboard')
+        history.push('/home')
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
@@ -101,12 +91,14 @@ const EditNaver: React.FC = () => {
 
       <Content>
         <TitleContainer>
-          <FaChevronLeft size={20} color="#000000" />
+          <Link to="/home">
+            <FaChevronLeft size={20} color="#000000" />
+          </Link>
           <h1>Editar Naver</h1>
         </TitleContainer>
 
         <FormContainer>
-          <Form ref={formRef} initialData={naver} onSubmit={handleSubmit}>
+          <Form ref={formRef} onSubmit={handleSubmit}>
             <Input name="name" label="Nome" placeholder="Nome" />
 
             <Input name="job_role" label="Cargo" placeholder="Cargo" />

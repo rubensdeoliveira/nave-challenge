@@ -12,6 +12,11 @@ export const TitleContainer = styled.div`
   align-items: center;
   margin-bottom: 32px;
 
+  a {
+    display: flex;
+    align-items: center;
+  }
+
   h1 {
     font-size: 24px;
     font-weight: 600;

@@ -4,7 +4,7 @@ import { FaChevronLeft } from 'react-icons/fa'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import {
   Content,
@@ -52,7 +52,7 @@ const CreateNaver: React.FC = () => {
 
         api.post('navers', data)
 
-        history.push('/dashboard')
+        history.push('/home')
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
@@ -70,7 +70,9 @@ const CreateNaver: React.FC = () => {
 
       <Content>
         <TitleContainer>
-          <FaChevronLeft size={20} color="#000000" />
+          <Link to="/home">
+            <FaChevronLeft size={20} color="#000000" />
+          </Link>
           <h1>Adicionar Naver</h1>
         </TitleContainer>
 

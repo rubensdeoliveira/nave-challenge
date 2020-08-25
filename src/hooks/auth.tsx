@@ -22,7 +22,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<User>(() => {
-    const userResponse = localStorage.getItem('@GoBarber:user')
+    const userResponse = localStorage.getItem('@Naver:user')
 
     if (userResponse) {
       const user = JSON.parse(userResponse)
@@ -43,7 +43,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const user = response.data
 
-    localStorage.setItem('@GoBarber:user', JSON.stringify(user))
+    localStorage.setItem('@Naver:user', JSON.stringify(user))
 
     api.defaults.headers.authorization = `Bearer ${user.token}`
 
@@ -51,7 +51,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signOut = useCallback(async () => {
-    localStorage.removeItem('@GoBarber:user')
+    localStorage.removeItem('@Naver:user')
 
     setData({} as User)
   }, [])
