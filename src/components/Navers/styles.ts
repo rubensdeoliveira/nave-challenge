@@ -27,13 +27,18 @@ export const Container = styled.div`
     color: #212121;
     margin-bottom: 13px;
   }
-
-  svg + svg {
-    margin-left: 16px;
-  }
 `
 
 export const ActionContainer = styled.div`
   display: flex;
   align-items: center;
+
+  button {
+    border: 0;
+    background: transparent;
+  }
+
+  button + button {
+    margin-left: 16px;
+  }
 `
