@@ -45,5 +45,10 @@ export const Content = styled.div`
         color: ${shade(0.2, '#f4ede8')};
       }
     }
+
+    button {
+      max-width: unset;
+      margin-top: 32px;
+    }
   }
 `

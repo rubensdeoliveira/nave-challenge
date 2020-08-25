@@ -8,9 +8,9 @@ export const Container = styled.button`
   padding: 0 16px;
   color: #ffffff;
   width: 100%;
+  max-width: 176px;
   font-weight: 600;
   font-size: 14px;
-  margin-top: 32px;
   transition: background-color 0.2s;
 
   &:hover {
