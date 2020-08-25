@@ -36,15 +36,25 @@ const Home: React.FC = () => {
     history.push('/create-naver')
   }, [history])
 
-  async function handleDeleteNaver(id: string): Promise<void> {
-    try {
-      await api.delete(`navers/${id}`)
+  const handleDeleteNaver = useCallback(
+    async (id: string) => {
+      try {
+        await api.delete(`navers/${id}`)
 
-      setNavers(navers.filter((naver) => naver.id !== id))
-    } catch (err) {
-      console.log(err)
-    }
-  }
+        setNavers(navers.filter((naver) => naver.id !== id))
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    [navers],
+  )
+
+  const handleEditNaver = useCallback(
+    (id: string) => {
+      history.push('/edit-naver', { id })
+    },
+    [history],
+  )
 
   return (
     <>
@@ -62,6 +72,7 @@ const Home: React.FC = () => {
               key={naver.id}
               naver={naver}
               handleDelete={handleDeleteNaver}
+              handleEdit={handleEditNaver}
             />
           ))}
       </NaversContainer>

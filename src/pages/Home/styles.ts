@@ -6,7 +6,7 @@ export const NaversBar = styled.div`
   align-items: center;
 
   margin-top: 64px;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 
   width: 100%;
 
@@ -24,8 +24,4 @@ export const NaversContainer = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
-
-  @media (min-width: 1280px) {
-    justify-content: space-between;
-  }
 `

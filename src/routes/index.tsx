@@ -6,6 +6,7 @@ import SignIn from '../pages/SignIn'
 
 import Home from '../pages/Home'
 import CreateNaver from '../pages/CreateNaver'
+import EditNaver from '../pages/EditNaver'
 
 const Routes: React.FC = () => (
   <Switch>
@@ -13,6 +14,7 @@ const Routes: React.FC = () => (
 
     <Route path="/dashboard" component={Home} />
     <Route path="/create-naver" component={CreateNaver} />
+    <Route path="/edit-naver" component={EditNaver} />
   </Switch>
 )
 

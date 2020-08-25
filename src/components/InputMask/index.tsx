@@ -44,8 +44,8 @@ const InputMask: React.FC<Props> = ({
       >
         <ReactInputMask
           id={fieldName}
-          ref={inputMaskRef}
           defaultValue={defaultValue}
+          ref={inputMaskRef}
           {...rest}
         />
         {error && (
