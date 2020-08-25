@@ -8,9 +8,14 @@ export const Container = styled.header`
   width: 100%;
   height: 85px;
 
-  img {
-    width: 145px;
-    height: 37px;
+  a {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 145px;
+      height: 37px;
+    }
   }
 
   button {

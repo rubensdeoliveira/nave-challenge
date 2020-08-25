@@ -25,7 +25,7 @@ export const NaversContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1280px) {
     justify-content: space-between;
   }
 `

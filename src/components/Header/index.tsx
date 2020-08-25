@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
 import { Container } from './styles'
 
 import logo from '../../assets/logo.png'
@@ -10,7 +11,9 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <img src={logo} alt="nave.rs" />
+      <Link to="/">
+        <img src={logo} alt="nave.rs" />
+      </Link>
       <button type="button" onClick={signOut}>
         Sair
       </button>

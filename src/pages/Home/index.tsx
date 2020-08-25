@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
+import { useHistory } from 'react-router-dom'
 import { NaversBar, NaversContainer } from './styles'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
@@ -18,13 +19,19 @@ interface INaverInfo {
 const Home: React.FC = () => {
   const [navers, setNavers] = useState<INaverInfo[]>([])
 
+  const history = useHistory()
+
+  const handleNavigate = useCallback(() => {
+    history.push('/create-naver')
+  }, [history])
+
   return (
     <>
       <Header />
 
       <NaversBar>
         <h1>Navers</h1>
-        <Button>Adicionar Naver</Button>
+        <Button onClick={handleNavigate}>Adicionar Naver</Button>
       </NaversBar>
 
       <NaversContainer>

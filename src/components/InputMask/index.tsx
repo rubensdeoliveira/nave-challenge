@@ -1,29 +1,35 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react'
-import { FiAlertCircle } from 'react-icons/fi'
+import React, { useRef, useEffect } from 'react'
+import ReactInputMask, { Props as InputProps } from 'react-input-mask'
 import { useField } from '@unform/core'
-
+import { FiAlertCircle } from 'react-icons/fi'
 import { Container, InputContainer, Error } from './styles'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputProps {
   name: string
   label: string
   containerStyle?: Object
 }
 
-const Input: React.FC<InputProps> = ({
+const InputMask: React.FC<Props> = ({
   name,
   label,
   containerStyle = {},
   ...rest
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const { fieldName, defaultValue, error, registerField } = useField(name)
+  const inputMaskRef = useRef(null)
+  const { fieldName, registerField, defaultValue, error } = useField(name)
 
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: inputRef.current,
+      ref: inputMaskRef.current,
       path: 'value',
+      setValue(ref: any, value: string) {
+        ref.setInputValue(value)
+      },
+      clearValue(ref: any) {
+        ref.setInputValue('')
+      },
     })
   }, [fieldName, registerField])
 
@@ -34,12 +40,12 @@ const Input: React.FC<InputProps> = ({
       <InputContainer
         style={containerStyle}
         isErrored={!!error}
-        data-testid="input-container"
+        data-testid="input-mask-container"
       >
-        <input
+        <ReactInputMask
           id={fieldName}
+          ref={inputMaskRef}
           defaultValue={defaultValue}
-          ref={inputRef}
           {...rest}
         />
         {error && (
@@ -52,4 +58,4 @@ const Input: React.FC<InputProps> = ({
   )
 }
 
-export default Input
+export default InputMask
