@@ -16,12 +16,20 @@ interface IProps {
   naver: INaverInfo
   handleDelete: (id: string) => void
   handleEdit: (id: string) => void
+  handleSelect: (naver: INaverInfo) => void
 }
 
-const Navers: React.FC<IProps> = ({ naver, handleDelete, handleEdit }) => {
+const Navers: React.FC<IProps> = ({
+  naver,
+  handleDelete,
+  handleEdit,
+  handleSelect,
+}) => {
   return (
     <Container>
-      <img src={naver.url} alt={naver.name} />
+      <button type="button" onClick={() => handleSelect(naver)}>
+        <img src={naver.url} alt={naver.name} />
+      </button>
       <h2>{naver.name}</h2>
       <p>{naver.job_role}</p>
       <ActionContainer>

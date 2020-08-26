@@ -7,10 +7,17 @@ export const Container = styled.div`
   max-width: 280px;
   margin-bottom: 32px;
 
-  img {
-    width: 280px;
-    height: 280px;
-    margin-bottom: 16px;
+  button {
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 100%;
+      width: 100%;
+      margin-bottom: 16px;
+    }
   }
 
   h2 {

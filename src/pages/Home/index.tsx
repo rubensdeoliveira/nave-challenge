@@ -6,6 +6,7 @@ import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Navers from '../../components/Navers'
 import api from '../../services/api'
+import ModalViewNaver from '../../components/ModalViewNaver'
 
 interface INaverInfo {
   id: string
@@ -19,6 +20,10 @@ interface INaverInfo {
 
 const Home: React.FC = () => {
   const [navers, setNavers] = useState<INaverInfo[]>([])
+  const [selectedNaver, setSelectedNaver] = useState<INaverInfo>(
+    {} as INaverInfo,
+  )
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     async function loadNavers(): Promise<void> {
@@ -56,9 +61,29 @@ const Home: React.FC = () => {
     [history],
   )
 
+  const toggleModal = useCallback(() => {
+    setModalOpen(!modalOpen)
+  }, [modalOpen])
+
+  const handleSelectNaver = useCallback(
+    (naver: INaverInfo) => {
+      setSelectedNaver(naver)
+      toggleModal()
+    },
+    [toggleModal],
+  )
+
   return (
     <>
       <Header />
+
+      <ModalViewNaver
+        isOpen={modalOpen}
+        setIsOpen={toggleModal}
+        naver={selectedNaver}
+        handleDelete={handleDeleteNaver}
+        handleEdit={handleEditNaver}
+      />
 
       <NaversBar>
         <h1>Navers</h1>
@@ -73,6 +98,7 @@ const Home: React.FC = () => {
               naver={naver}
               handleDelete={handleDeleteNaver}
               handleEdit={handleEditNaver}
+              handleSelect={handleSelectNaver}
             />
           ))}
       </NaversContainer>
