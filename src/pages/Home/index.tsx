@@ -8,6 +8,7 @@ import Navers from '../../components/Navers'
 import api from '../../services/api'
 import ModalViewNaver from '../../components/ModalViewNaver'
 import ModalDeleteNaver from '../../components/ModalDeleteNaver'
+import ModalInfo from '../../components/ModalInfo'
 
 interface INaverInfo {
   id: string
@@ -25,7 +26,8 @@ const Home: React.FC = () => {
     {} as INaverInfo,
   )
   const [modalOpen, setModalOpen] = useState(false)
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
+  const [modalInfoOpen, setModalInfoOpen] = useState(false)
 
   useEffect(() => {
     async function loadNavers(): Promise<void> {
@@ -39,6 +41,18 @@ const Home: React.FC = () => {
 
   const history = useHistory()
 
+  const toggleModal = useCallback(() => {
+    setModalOpen(!modalOpen)
+  }, [modalOpen])
+
+  const toggleModalDelete = useCallback(() => {
+    setModalDeleteOpen(!modalDeleteOpen)
+  }, [modalDeleteOpen])
+
+  const toggleModalInfo = useCallback(() => {
+    setModalInfoOpen(!modalInfoOpen)
+  }, [modalInfoOpen])
+
   const handleNavigate = useCallback(() => {
     history.push('/create-naver')
   }, [history])
@@ -46,15 +60,18 @@ const Home: React.FC = () => {
   const handleDeleteNaver = useCallback(
     async (id: string) => {
       try {
-        console.log(id)
         await api.delete(`navers/${id}`)
+
+        toggleModal()
+        toggleModalDelete()
+        toggleModalInfo()
 
         setNavers(navers.filter((naver) => naver.id !== id))
       } catch (err) {
         console.log(err)
       }
     },
-    [navers],
+    [navers, toggleModal, toggleModalDelete, toggleModalInfo],
   )
 
   const handleEditNaver = useCallback(
@@ -64,10 +81,6 @@ const Home: React.FC = () => {
     [history],
   )
 
-  const toggleModal = useCallback(() => {
-    setModalOpen(!modalOpen)
-  }, [modalOpen])
-
   const handleViewNaver = useCallback(
     (naver: INaverInfo) => {
       setSelectedNaver(naver)
@@ -76,16 +89,12 @@ const Home: React.FC = () => {
     [toggleModal],
   )
 
-  const toggleDeleteModal = useCallback(() => {
-    setDeleteModalOpen(!deleteModalOpen)
-  }, [deleteModalOpen])
-
   const handleOpenDeleteModal = useCallback(
     (naver: INaverInfo) => {
       setSelectedNaver(naver)
-      toggleDeleteModal()
+      toggleModalDelete()
     },
-    [toggleDeleteModal],
+    [toggleModalDelete],
   )
 
   return (
@@ -101,10 +110,17 @@ const Home: React.FC = () => {
       />
 
       <ModalDeleteNaver
-        isOpen={deleteModalOpen}
-        setIsOpen={toggleDeleteModal}
+        isOpen={modalDeleteOpen}
+        setIsOpen={toggleModalDelete}
         naver={selectedNaver}
         handleDelete={handleDeleteNaver}
+      />
+
+      <ModalInfo
+        isOpen={modalInfoOpen}
+        setIsOpen={toggleModalInfo}
+        title="Naver excluído"
+        message="Naver excluído com sucesso!"
       />
 
       <NaversBar>
