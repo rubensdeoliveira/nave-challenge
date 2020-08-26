@@ -3,6 +3,7 @@ import React from 'react'
 import Modal from '../Modal'
 import { CancelButton, Container, ActionContainer } from './styles'
 import Button from '../Button'
+import CloseButton from '../CloseButton'
 
 interface INaverInfo {
   id: string
@@ -30,6 +31,8 @@ const ModalDeleteNaver: React.FC<IModalProps> = ({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="592px">
       <Container>
+        <CloseButton onClick={setIsOpen} />
+
         <h1>Excluir Naver</h1>
         <p>Tem certeza que deseja excluir este Naver?</p>
 

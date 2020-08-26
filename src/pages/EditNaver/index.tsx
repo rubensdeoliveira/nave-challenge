@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react'
+import React, { useRef, useCallback, useEffect, useState } from 'react'
 
 import { FaChevronLeft } from 'react-icons/fa'
 import { Form } from '@unform/web'
@@ -18,6 +18,7 @@ import getValidationErrors from '../../utils/getValidationErrors'
 import InputMask from '../../components/InputMask'
 import api from '../../services/api'
 import transformDate from '../../utils/transformDate'
+import ModalInfo from '../../components/ModalInfo'
 
 interface INaverInfo {
   name: string
@@ -33,6 +34,8 @@ interface HistoryStateProps {
 }
 
 const EditNaver: React.FC = () => {
+  const [modalInfoOpen, setModalInfoOpen] = useState(false)
+
   const formRef = useRef<FormHandles>(null)
 
   const history = useHistory()
@@ -52,6 +55,14 @@ const EditNaver: React.FC = () => {
 
     loadNaver()
   }, [historyState.id])
+
+  const toggleModalInfo = useCallback(() => {
+    setModalInfoOpen(!modalInfoOpen)
+
+    if (modalInfoOpen) {
+      history.push('/home')
+    }
+  }, [modalInfoOpen, history])
 
   const handleSubmit = useCallback(
     async (data: INaverInfo) => {
@@ -73,7 +84,7 @@ const EditNaver: React.FC = () => {
 
         api.put(`navers/${historyState.id}`, data)
 
-        history.push('/home')
+        toggleModalInfo()
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
@@ -82,12 +93,19 @@ const EditNaver: React.FC = () => {
         }
       }
     },
-    [history, historyState.id],
+    [toggleModalInfo, historyState.id],
   )
 
   return (
     <>
       <Header />
+
+      <ModalInfo
+        isOpen={modalInfoOpen}
+        setIsOpen={toggleModalInfo}
+        title="Naver atualizado"
+        message="Naver atualizado com sucesso!"
+      />
 
       <Content>
         <TitleContainer>

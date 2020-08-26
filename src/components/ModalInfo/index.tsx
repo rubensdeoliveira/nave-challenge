@@ -3,6 +3,7 @@ import React from 'react'
 import Modal from '../Modal'
 
 import { Container } from './styles'
+import CloseButton from '../CloseButton'
 
 interface IModalProps {
   isOpen: boolean
@@ -20,6 +21,8 @@ const ModalInfo: React.FC<IModalProps> = ({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="592px">
       <Container>
+        <CloseButton onClick={setIsOpen} />
+
         <h1>{title}</h1>
         <p>{message}</p>
       </Container>

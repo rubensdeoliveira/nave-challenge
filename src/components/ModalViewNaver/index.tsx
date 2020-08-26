@@ -9,6 +9,7 @@ import {
   InfoContainer,
   ActionContainer,
 } from './styles'
+import CloseButton from '../CloseButton'
 
 interface INaverInfo {
   id: string
@@ -38,6 +39,8 @@ const ModalViewNaver: React.FC<IModalProps> = ({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="1000px">
       <Container>
+        <CloseButton onClick={setIsOpen} />
+
         <ImageContainer>
           <img src={naver.url} alt={naver.name} />
         </ImageContainer>

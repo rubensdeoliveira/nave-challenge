@@ -2,17 +2,30 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 10px;
+  padding: 32px;
 
-  width: 100%;
-  max-width: 1000px;
-  max-height: 500px;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
+  h1 {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 600;
+    color: #212121;
   }
+
+  p {
+    line-height: 36px;
+    color: #212121;
+    margin-top: 24px;
+  }
+`
+
+export const CloseButton = styled.button`
+  display: flex;
+  align-items: center;
+
+  border: 0;
+  background: transparent;
+  position: absolute;
+  top: 21px;
+  right: 21px;
 `
