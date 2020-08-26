@@ -24,7 +24,7 @@ interface IModalProps {
   isOpen: boolean
   naver: INaverInfo
   setIsOpen: () => void
-  handleDelete: (id: string) => void
+  handleOpenDeleteModal: (naver: INaverInfo) => void
   handleEdit: (id: string) => void
 }
 
@@ -32,11 +32,11 @@ const ModalViewNaver: React.FC<IModalProps> = ({
   isOpen,
   naver,
   setIsOpen,
-  handleDelete,
+  handleOpenDeleteModal,
   handleEdit,
 }) => {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="1000px">
       <Container>
         <ImageContainer>
           <img src={naver.url} alt={naver.name} />
@@ -53,7 +53,7 @@ const ModalViewNaver: React.FC<IModalProps> = ({
           <p>{naver.project}</p>
 
           <ActionContainer>
-            <button type="button" onClick={() => handleDelete(naver.id)}>
+            <button type="button" onClick={() => handleOpenDeleteModal(naver)}>
               <MdDelete size={18} color="#212121" />
             </button>
 

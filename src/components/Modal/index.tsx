@@ -14,10 +14,16 @@ interface IFoodPlate {
 interface IModalProps {
   children: any
   isOpen: boolean
+  maxWidth: string
   setIsOpen: () => void
 }
 
-const Modal: React.FC<IModalProps> = ({ children, isOpen, setIsOpen }) => {
+const Modal: React.FC<IModalProps> = ({
+  children,
+  isOpen,
+  maxWidth,
+  setIsOpen,
+}) => {
   const [modalStatus, setModalStatus] = useState(isOpen)
 
   useEffect(() => {
@@ -42,7 +48,7 @@ const Modal: React.FC<IModalProps> = ({ children, isOpen, setIsOpen }) => {
           color: '#000000',
           borderRadius: '0px',
           width: '85%',
-          maxWidth: '1000px',
+          maxWidth,
           border: 'none',
           padding: 0,
         },

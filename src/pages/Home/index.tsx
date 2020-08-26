@@ -7,6 +7,7 @@ import Button from '../../components/Button'
 import Navers from '../../components/Navers'
 import api from '../../services/api'
 import ModalViewNaver from '../../components/ModalViewNaver'
+import ModalDeleteNaver from '../../components/ModalDeleteNaver'
 
 interface INaverInfo {
   id: string
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
     {} as INaverInfo,
   )
   const [modalOpen, setModalOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
   useEffect(() => {
     async function loadNavers(): Promise<void> {
@@ -44,6 +46,7 @@ const Home: React.FC = () => {
   const handleDeleteNaver = useCallback(
     async (id: string) => {
       try {
+        console.log(id)
         await api.delete(`navers/${id}`)
 
         setNavers(navers.filter((naver) => naver.id !== id))
@@ -65,12 +68,24 @@ const Home: React.FC = () => {
     setModalOpen(!modalOpen)
   }, [modalOpen])
 
-  const handleSelectNaver = useCallback(
+  const handleViewNaver = useCallback(
     (naver: INaverInfo) => {
       setSelectedNaver(naver)
       toggleModal()
     },
     [toggleModal],
+  )
+
+  const toggleDeleteModal = useCallback(() => {
+    setDeleteModalOpen(!deleteModalOpen)
+  }, [deleteModalOpen])
+
+  const handleOpenDeleteModal = useCallback(
+    (naver: INaverInfo) => {
+      setSelectedNaver(naver)
+      toggleDeleteModal()
+    },
+    [toggleDeleteModal],
   )
 
   return (
@@ -81,8 +96,15 @@ const Home: React.FC = () => {
         isOpen={modalOpen}
         setIsOpen={toggleModal}
         naver={selectedNaver}
-        handleDelete={handleDeleteNaver}
+        handleOpenDeleteModal={handleOpenDeleteModal}
         handleEdit={handleEditNaver}
+      />
+
+      <ModalDeleteNaver
+        isOpen={deleteModalOpen}
+        setIsOpen={toggleDeleteModal}
+        naver={selectedNaver}
+        handleDelete={handleDeleteNaver}
       />
 
       <NaversBar>
@@ -96,9 +118,9 @@ const Home: React.FC = () => {
             <Navers
               key={naver.id}
               naver={naver}
-              handleDelete={handleDeleteNaver}
+              handleOpenDeleteModal={handleOpenDeleteModal}
               handleEdit={handleEditNaver}
-              handleSelect={handleSelectNaver}
+              handleView={handleViewNaver}
             />
           ))}
       </NaversContainer>

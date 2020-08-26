@@ -34,7 +34,7 @@ export const Content = styled.div`
     }
 
     button {
-      max-width: unset;
+      width: 100%;
       margin-top: 32px;
     }
 

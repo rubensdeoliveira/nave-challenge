@@ -14,26 +14,26 @@ interface INaverInfo {
 
 interface IProps {
   naver: INaverInfo
-  handleDelete: (id: string) => void
+  handleOpenDeleteModal: (naver: INaverInfo) => void
   handleEdit: (id: string) => void
-  handleSelect: (naver: INaverInfo) => void
+  handleView: (naver: INaverInfo) => void
 }
 
 const Navers: React.FC<IProps> = ({
   naver,
-  handleDelete,
+  handleOpenDeleteModal,
   handleEdit,
-  handleSelect,
+  handleView,
 }) => {
   return (
     <Container>
-      <button type="button" onClick={() => handleSelect(naver)}>
+      <button type="button" onClick={() => handleView(naver)}>
         <img src={naver.url} alt={naver.name} />
       </button>
       <h2>{naver.name}</h2>
       <p>{naver.job_role}</p>
       <ActionContainer>
-        <button type="button" onClick={() => handleDelete(naver.id)}>
+        <button type="button" onClick={() => handleOpenDeleteModal(naver)}>
           <MdDelete size={18} color="#212121" />
         </button>
 
