@@ -17,7 +17,10 @@ import Input from '../../components/Input'
 import getValidationErrors from '../../utils/getValidationErrors'
 import InputMask from '../../components/InputMask'
 import api from '../../services/api'
-import { convertToString, convertToGlobalDate } from '../../utils/transformDate'
+import {
+  convertToLocalDate,
+  convertToGlobalDate,
+} from '../../utils/transformDate'
 import ModalInfo from '../../components/ModalInfo'
 import { useToast } from '../../hooks/toast'
 
@@ -51,8 +54,8 @@ const EditNaver: React.FC = () => {
 
       formRef.current?.setData({
         ...data,
-        birthdate: convertToString(data.birthdate),
-        admission_date: convertToString(data.admission_date),
+        birthdate: convertToLocalDate(data.birthdate),
+        admission_date: convertToLocalDate(data.admission_date),
       })
     }
 

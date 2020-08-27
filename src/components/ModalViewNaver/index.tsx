@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { MdDelete, MdCreate } from 'react-icons/md'
 import Modal from '../Modal'
@@ -10,6 +10,7 @@ import {
   ActionContainer,
 } from './styles'
 import CloseButton from '../CloseButton'
+import { convertToLocalDate } from '../../utils/transformDate'
 
 interface INaverInfo {
   id: string
@@ -36,6 +37,14 @@ const ModalViewNaver: React.FC<IModalProps> = ({
   handleOpenDeleteModal,
   handleEdit,
 }) => {
+  const birthdateFormatted = useMemo(() => {
+    return convertToLocalDate(naver.birthdate)
+  }, [naver.birthdate])
+
+  const admissionDateFormatted = useMemo(() => {
+    return convertToLocalDate(naver.admission_date)
+  }, [naver.admission_date])
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="1000px">
       <Container>
@@ -49,9 +58,9 @@ const ModalViewNaver: React.FC<IModalProps> = ({
           <h1>{naver.name}</h1>
           <p>{naver.job_role}</p>
           <h2>Idade</h2>
-          <p>{naver.birthdate}</p>
+          <p>{birthdateFormatted}</p>
           <h2>Tempo de empresa</h2>
-          <p>{naver.admission_date}</p>
+          <p>{admissionDateFormatted}</p>
           <h2>Projetos que participou</h2>
           <p>{naver.project}</p>
 

@@ -1,9 +1,9 @@
 import { addHours } from 'date-fns'
 
-export function convertToString(oldDate: Date): string {
+export function convertToLocalDate(oldDate: string): string {
   const date = addHours(new Date(oldDate), 3)
 
-  const formattedDate = new Intl.DateTimeFormat('pt-BR').format(date)
+  const formattedDate = date.toLocaleDateString('pt-BR')
 
   return formattedDate
 }
