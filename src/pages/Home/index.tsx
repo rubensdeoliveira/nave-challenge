@@ -9,6 +9,7 @@ import api from '../../services/api'
 import ModalViewNaver from '../../components/ModalViewNaver'
 import ModalDeleteNaver from '../../components/ModalDeleteNaver'
 import ModalInfo from '../../components/ModalInfo'
+import { useToast } from '../../hooks/toast'
 
 interface INaverInfo {
   id: string
@@ -28,6 +29,8 @@ const Home: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
   const [modalInfoOpen, setModalInfoOpen] = useState(false)
+
+  const { addToast } = useToast()
 
   useEffect(() => {
     async function loadNavers(): Promise<void> {
@@ -68,10 +71,14 @@ const Home: React.FC = () => {
 
         setNavers(navers.filter((naver) => naver.id !== id))
       } catch (err) {
-        console.log(err)
+        addToast({
+          type: 'error',
+          title: 'Erro ao excluir o naver',
+          description: 'Tente novamente mais tarde.',
+        })
       }
     },
-    [navers, toggleModal, toggleModalDelete, toggleModalInfo],
+    [navers, toggleModal, toggleModalDelete, toggleModalInfo, addToast],
   )
 
   const handleEditNaver = useCallback(

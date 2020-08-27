@@ -18,6 +18,8 @@ import getValidationErrors from '../../utils/getValidationErrors'
 import InputMask from '../../components/InputMask'
 import api from '../../services/api'
 import ModalInfo from '../../components/ModalInfo'
+import { convertToGlobalDate } from '../../utils/transformDate'
+import { useToast } from '../../hooks/toast'
 
 interface INaverInfo {
   name: string
@@ -34,6 +36,8 @@ const CreateNaver: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const history = useHistory()
+
+  const { addToast } = useToast()
 
   const toggleModalInfo = useCallback(() => {
     setModalInfoOpen(!modalInfoOpen)
@@ -53,15 +57,21 @@ const CreateNaver: React.FC = () => {
           job_role: Yup.string().required('Cargo obrigatório'),
           birthdate: Yup.date().required('Idade obrigatória'),
           admission_date: Yup.date().required('Tempo de empresa obrigatório'),
+          project: Yup.string().required('Projeto obrigatório'),
+          url: Yup.string().required('URL de foto obrigatória'),
         })
 
-        await schema.isValid(new Date('dd/mm/yyyy'))
+        const formattedData = {
+          ...data,
+          birthdate: convertToGlobalDate(data.birthdate),
+          admission_date: convertToGlobalDate(data.admission_date),
+        }
 
-        await schema.validate(data, {
+        await schema.validate(formattedData, {
           abortEarly: false,
         })
 
-        api.post('navers', data)
+        await api.post('navers', data)
 
         toggleModalInfo()
       } catch (err) {
@@ -69,10 +79,18 @@ const CreateNaver: React.FC = () => {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          return
         }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na criação do naver',
+          description: 'Verifique os campos e tente novamente.',
+        })
       }
     },
-    [toggleModalInfo],
+    [toggleModalInfo, addToast],
   )
 
   return (

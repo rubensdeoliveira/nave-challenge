@@ -37,7 +37,6 @@ export const InputContainer = styled.div<ContainerProps>`
     `}
 
   input {
-    flex: 1;
     background: transparent;
     border: 0;
     color: #333;
@@ -45,10 +44,6 @@ export const InputContainer = styled.div<ContainerProps>`
     &::placeholder {
       color: #9e9e9e;
     }
-  }
-
-  svg {
-    margin-right: 16px;
   }
 
   label {
@@ -62,6 +57,11 @@ export const Error = styled(Tooltip)`
 
   svg {
     margin: 0;
+    display: none;
+
+    @media (min-width: 340px) {
+      display: inherit;
+    }
   }
 
   span {

@@ -62,6 +62,11 @@ export const Error = styled(Tooltip)`
 
   svg {
     margin: 0;
+    display: none;
+
+    @media (min-width: 340px) {
+      display: inherit;
+    }
   }
 
   span {

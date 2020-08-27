@@ -18,14 +18,3 @@ export const Container = styled.div`
     margin-top: 24px;
   }
 `
-
-export const CloseButton = styled.button`
-  display: flex;
-  align-items: center;
-
-  border: 0;
-  background: transparent;
-  position: absolute;
-  top: 21px;
-  right: 21px;
-`

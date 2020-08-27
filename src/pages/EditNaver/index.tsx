@@ -17,8 +17,9 @@ import Input from '../../components/Input'
 import getValidationErrors from '../../utils/getValidationErrors'
 import InputMask from '../../components/InputMask'
 import api from '../../services/api'
-import transformDate from '../../utils/transformDate'
+import { convertToString, convertToGlobalDate } from '../../utils/transformDate'
 import ModalInfo from '../../components/ModalInfo'
+import { useToast } from '../../hooks/toast'
 
 interface INaverInfo {
   name: string
@@ -38,6 +39,8 @@ const EditNaver: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null)
 
+  const { addToast } = useToast()
+
   const history = useHistory()
   const { state } = history.location
   const historyState = state as HistoryStateProps
@@ -48,8 +51,8 @@ const EditNaver: React.FC = () => {
 
       formRef.current?.setData({
         ...data,
-        birthdate: transformDate(data.birthdate),
-        admission_date: transformDate(data.admission_date),
+        birthdate: convertToString(data.birthdate),
+        admission_date: convertToString(data.admission_date),
       })
     }
 
@@ -74,15 +77,21 @@ const EditNaver: React.FC = () => {
           job_role: Yup.string().required('Cargo obrigatório'),
           birthdate: Yup.date().required('Idade obrigatória'),
           admission_date: Yup.date().required('Tempo de empresa obrigatório'),
+          project: Yup.string().required('Projeto obrigatório'),
+          url: Yup.string().required('URL de foto obrigatória'),
         })
 
-        await schema.isValid(new Date('dd/mm/yyyy'))
+        const formattedData = {
+          ...data,
+          birthdate: convertToGlobalDate(data.birthdate),
+          admission_date: convertToGlobalDate(data.admission_date),
+        }
 
-        await schema.validate(data, {
+        await schema.validate(formattedData, {
           abortEarly: false,
         })
 
-        api.put(`navers/${historyState.id}`, data)
+        await api.put(`navers/${historyState.id}`, data)
 
         toggleModalInfo()
       } catch (err) {
@@ -90,10 +99,18 @@ const EditNaver: React.FC = () => {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          return
         }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na atualização do naver',
+          description: 'Verifique os campos e tente novamente.',
+        })
       }
     },
-    [toggleModalInfo, historyState.id],
+    [toggleModalInfo, historyState.id, addToast],
   )
 
   return (

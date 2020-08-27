@@ -40,13 +40,22 @@ export const FormContainer = styled.div`
       width: 100%;
       max-width: 280px;
 
-      div {
+      > div {
         margin-bottom: 32px;
       }
     }
 
     @media (min-width: 625px) {
       justify-content: space-between;
+    }
+
+    button {
+      width: 100%;
+      max-width: 280px;
+
+      @media (min-width: 625px) {
+        width: 176px;
+      }
     }
   }
 `

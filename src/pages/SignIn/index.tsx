@@ -12,6 +12,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import { useAuth } from '../../hooks/auth'
 import getValidationErrors from '../../utils/getValidationErrors'
+import { useToast } from '../../hooks/toast'
 
 interface ISignInFormData {
   email: string
@@ -22,6 +23,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const { signIn } = useAuth()
+  const { addToast } = useToast()
 
   const history = useHistory()
 
@@ -52,10 +54,18 @@ const SignIn: React.FC = () => {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          return
         }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+        })
       }
     },
-    [signIn, history],
+    [signIn, history, addToast],
   )
 
   return (
