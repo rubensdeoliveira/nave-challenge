@@ -1,8 +1,8 @@
-<img alt="GoStack" src="https://storage.googleapis.com/golden-wind/bootcamp-gostack/header-desafios.png" />
+<img alt="Nave.rs" src="repo/imgs/logo.png" />
 
 <h1 align="center">
 <br>
-Desafio Nave
+Desafio Navedex
 </h1>
 
 <p align="center">
@@ -22,6 +22,10 @@ Este projeto foi desenvolvido para resolver um desafio proposto por uma empresa 
 </div>
 
 <hr />
+
+## Navedex
+
+O sistema consiste em uma web app para visualização e criação dos navers, possuindo informações como: nomes, idades, cargos, tempo de empresa e projetos que participou.
 
 ## API
 
@@ -59,18 +63,25 @@ O usuário precisa ter a possibilidade de criar um novo `naver` ou editar um já
 Para criar um `naver`, você deve usar a request de `navers/create` disponível no postman.
 Para editar um `naver`, você deve usar a request de `navers/update` disponível no postman.
 
+### Bônus
+
+Além das funcionalidades pedidas no desafio, foram adicionadas as seguintes:
+
+- Responsividade: a aplicação está otimizada para dispositivos móveis.
+- Testes unitários: a aplicação está com a grande maioria dos componentes e páginas cobertas por testes automatizados.
+
 ## Testes
 
 - Para rodar os testes use `yarn test`
 - Para rodar o relatório de cobertura dos testes rode `yarn test:coverage`
 
-## Getting started
+## Como rodar
 
 - Clone o projeto > entre na pasta do projeto
 - rode `yarn`
 - rode `yarn start`
 
-## License
+## Licença
 
 [LICENSE](https://opensource.org/licenses/MIT)
 
