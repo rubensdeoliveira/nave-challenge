@@ -52,9 +52,11 @@ export const FormContainer = styled.div`
     button {
       width: 100%;
       max-width: 280px;
+      margin-bottom: 20px;
 
       @media (min-width: 625px) {
         width: 176px;
+        margin-bottom: 0px;
       }
     }
   }

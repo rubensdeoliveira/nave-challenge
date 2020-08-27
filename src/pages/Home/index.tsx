@@ -32,15 +32,15 @@ const Home: React.FC = () => {
 
   const { addToast } = useToast()
 
-  useEffect(() => {
-    async function loadNavers(): Promise<void> {
-      const response = await api.get('navers')
+  const loadNavers = useCallback(async () => {
+    const response = await api.get('navers')
 
-      setNavers(response.data)
-    }
-
-    loadNavers()
+    setNavers(response.data)
   }, [])
+
+  useEffect(() => {
+    loadNavers()
+  }, [loadNavers])
 
   const history = useHistory()
 
@@ -65,8 +65,8 @@ const Home: React.FC = () => {
       try {
         await api.delete(`navers/${id}`)
 
-        toggleModal()
-        toggleModalDelete()
+        modalOpen && toggleModal()
+        modalDeleteOpen && toggleModalDelete()
         toggleModalInfo()
 
         setNavers(navers.filter((naver) => naver.id !== id))
@@ -78,7 +78,15 @@ const Home: React.FC = () => {
         })
       }
     },
-    [navers, toggleModal, toggleModalDelete, toggleModalInfo, addToast],
+    [
+      navers,
+      toggleModal,
+      toggleModalDelete,
+      toggleModalInfo,
+      addToast,
+      modalOpen,
+      modalDeleteOpen,
+    ],
   )
 
   const handleEditNaver = useCallback(
