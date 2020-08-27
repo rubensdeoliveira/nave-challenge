@@ -1,4 +1,4 @@
-<img alt="Nave.rs" src="repo/imgs/logo.png" />
+<img alt="Nave.rs" src="repo/imgs/logo.png" align="center" />
 
 <h1 align="center">
 <br>
