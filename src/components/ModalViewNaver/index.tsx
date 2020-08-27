@@ -65,11 +65,19 @@ const ModalViewNaver: React.FC<IModalProps> = ({
           <p>{naver.project}</p>
 
           <ActionContainer>
-            <button type="button" onClick={() => handleOpenDeleteModal(naver)}>
+            <button
+              type="button"
+              onClick={() => handleOpenDeleteModal(naver)}
+              data-testid="detail-modal-delete-button"
+            >
               <MdDelete size={18} color="#212121" />
             </button>
 
-            <button type="button" onClick={() => handleEdit(naver.id)}>
+            <button
+              type="button"
+              onClick={() => handleEdit(naver.id)}
+              data-testid="detail-modal-edit-button"
+            >
               <MdCreate size={18} color="#212121" />
             </button>
           </ActionContainer>

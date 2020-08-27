@@ -122,6 +122,7 @@ const Home: React.FC = () => {
         naver={selectedNaver}
         handleOpenDeleteModal={handleOpenDeleteModal}
         handleEdit={handleEditNaver}
+        data-testid="modal"
       />
 
       <ModalDeleteNaver
@@ -136,6 +137,7 @@ const Home: React.FC = () => {
         setIsOpen={toggleModalInfo}
         title="Naver excluído"
         message="Naver excluído com sucesso!"
+        data-testid="modal-info"
       />
 
       <NaversBar>
@@ -143,7 +145,7 @@ const Home: React.FC = () => {
         <Button onClick={handleNavigate}>Adicionar Naver</Button>
       </NaversBar>
 
-      <NaversContainer>
+      <NaversContainer data-testid="navers-list">
         {navers &&
           navers.map((naver) => (
             <Navers

@@ -41,7 +41,11 @@ const ModalDeleteNaver: React.FC<IModalProps> = ({
             Cancelar
           </CancelButton>
 
-          <Button type="button" onClick={() => handleDelete(naver.id)}>
+          <Button
+            type="button"
+            onClick={() => handleDelete(naver.id)}
+            data-testid="modal-delete-button"
+          >
             Excluir
           </Button>
         </ActionContainer>

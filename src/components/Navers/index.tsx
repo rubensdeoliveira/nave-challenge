@@ -27,17 +27,29 @@ const Navers: React.FC<IProps> = ({
 }) => {
   return (
     <Container>
-      <button type="button" onClick={() => handleView(naver)}>
+      <button
+        type="button"
+        onClick={() => handleView(naver)}
+        data-testid={`detail-naver-${naver.id}`}
+      >
         <img src={naver.url} alt={naver.name} />
       </button>
       <h2>{naver.name}</h2>
       <p>{naver.job_role}</p>
       <ActionContainer>
-        <button type="button" onClick={() => handleOpenDeleteModal(naver)}>
+        <button
+          type="button"
+          onClick={() => handleOpenDeleteModal(naver)}
+          data-testid={`remove-naver-${naver.id}`}
+        >
           <MdDelete size={18} color="#212121" />
         </button>
 
-        <button type="button" onClick={() => handleEdit(naver.id)}>
+        <button
+          type="button"
+          onClick={() => handleEdit(naver.id)}
+          data-testid={`edit-naver-${naver.id}`}
+        >
           <MdCreate size={18} color="#212121" />
         </button>
       </ActionContainer>

@@ -21,7 +21,10 @@ const ModalInfo: React.FC<IModalProps> = ({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} maxWidth="592px">
       <Container>
-        <CloseButton onClick={setIsOpen} />
+        <CloseButton
+          onClick={setIsOpen}
+          data-testid="modal-info-close-button"
+        />
 
         <h1>{title}</h1>
         <p>{message}</p>
