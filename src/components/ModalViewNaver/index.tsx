@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { MdDelete, MdCreate } from 'react-icons/md'
+import { differenceInYears, differenceInMonths } from 'date-fns'
 import Modal from '../Modal'
 
 import {
@@ -10,7 +11,6 @@ import {
   ActionContainer,
 } from './styles'
 import CloseButton from '../CloseButton'
-import { convertToLocalDate } from '../../utils/transformDate'
 
 interface INaverInfo {
   id: string
@@ -38,11 +38,16 @@ const ModalViewNaver: React.FC<IModalProps> = ({
   handleEdit,
 }) => {
   const birthdateFormatted = useMemo(() => {
-    return convertToLocalDate(naver.birthdate)
+    const age = differenceInYears(Date.now(), new Date(naver.birthdate))
+    return `${age} anos`
   }, [naver.birthdate])
 
   const admissionDateFormatted = useMemo(() => {
-    return convertToLocalDate(naver.admission_date)
+    const admissionTime = differenceInMonths(
+      Date.now(),
+      new Date(naver.admission_date),
+    )
+    return `${admissionTime} meses`
   }, [naver.admission_date])
 
   return (
